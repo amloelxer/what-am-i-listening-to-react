@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import axios from 'axios';
+
 import './App.css';
 
 class App extends Component {
+
   render() {
+    axios.get('https://desolate-shore-97449.herokuapp.com/').then(response => {
+      console.log(response);
+    }).catch(err => {
+      console.log(err);
+    });
     return (
       <div className="App">
         <header className="App-header">
