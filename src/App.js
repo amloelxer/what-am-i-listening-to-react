@@ -20,31 +20,23 @@ class App extends Component {
     });
   }
 
-  getPlaylists() {
-    if (this.state.playlists.length > 0) {
-      return this.state.playlists.filter(playlist => playlist.name.includes('NYC') || playlist.name.includes('New York')).map(playlist => {
-        return <div className='playlistButton' align='center'>
-          <Button
-            bsStyle="info"
-            bsSize="large"
-            bsClas="btn"
-            key={playlist.name}
-            onClick={() => window.open(playlist.external_urls.spotify)}
-          >
-            {playlist.name}
-          </Button>
-        </div>
+  getImages() {
+    if(this.state.playlists.length > 0) {
+      return this.state.playlists.map(playlist => {
+        let imagesArray = playlist.images; 
+        if (imagesArray.length > 0) {
+          return  <div className="playlistImage">
+                    <img src={imagesArray[0].url} onClick={() => window.open(playlist.external_urls.spotify)}></img>
+                  </div> 
+        }
       })
-    } else {
-      <Button
-        bsStyle="info"
-        bsSize="large"
-        bsClas="btn"
-        onClick={() => window.open("www.spotify.com")}
-      >
-        "There is nothing here"
-        </Button>
     }
+  }
+
+  getCenteredImages() {
+    return <div className='playlistImages' align='center'> 
+      {this.getImages()}
+    </div>
   }
 
   render() {
@@ -52,7 +44,7 @@ class App extends Component {
     return (
       <div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
-        {this.getPlaylists()}
+        {this.getCenteredImages()}
       </div>
     );
   }
