@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, ButtonGroup } from 'react-bootstrap';
 
 import './App.css';
 import './index.css';
@@ -20,31 +19,31 @@ class App extends Component {
     });
   }
 
-  getPlaylists() {
-    if (this.state.playlists.length > 0) {
-      return this.state.playlists.filter(playlist => playlist.name.includes('NYC') || playlist.name.includes('New York')).map(playlist => {
-        return <div className='playlistButton' align='center'>
-          <Button
-            bsStyle="info"
-            bsSize="large"
-            bsClas="btn"
-            key={playlist.name}
-            onClick={() => window.open(playlist.external_urls.spotify)}
-          >
-            {playlist.name}
-          </Button>
-        </div>
+  getImages() {
+    if(this.state.playlists.length > 0) {
+      return this.state.playlists.map(playlist => {
+        const imagesArray = playlist.images; 
+        if (imagesArray.length > 0) {
+          return  <li>
+                    <div className="playlistImage">
+                      <div className="someImage" align="center">
+                        <img src={imagesArray[0].url} onClick={() => window.open(playlist.external_urls.spotify)}></img>
+                      </div>
+
+                      <div className="playlistName">
+                        <b>{playlist.name}</b>
+                      </div>
+                    </div> 
+                  </li>
+        }
       })
-    } else {
-      <Button
-        bsStyle="info"
-        bsSize="large"
-        bsClas="btn"
-        onClick={() => window.open("www.spotify.com")}
-      >
-        "There is nothing here"
-        </Button>
     }
+  }
+
+  getCenteredImages() {
+    return <div className='playlistImages' align='center'> 
+      {this.getImages()}
+    </div>
   }
 
   render() {
@@ -52,7 +51,9 @@ class App extends Component {
     return (
       <div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
-        {this.getPlaylists()}
+        <ul>
+        {this.getCenteredImages()}
+        </ul>
       </div>
     );
   }
