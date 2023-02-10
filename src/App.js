@@ -47,13 +47,11 @@ class App extends Component {
   }
 
   render() {
-    document.body.style = 'background: #222;';
+    // document.body.style = 'background: #222;';
     return (
       <div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
-        <ul>
-        {this.getCenteredImages()}
-        </ul>
+        <h1>'Hello world'</h1>
       </div>
     );
   }
